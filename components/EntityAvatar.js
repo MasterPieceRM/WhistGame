@@ -51,21 +51,11 @@ export default function EntityAvatar({ entity, size = 64 }) {
 
     if (entity.type === 'team' && entity.players.length >= 2) {
         const p2 = entity.players[1];
-        const overlap = Math.round(size * 0.3);
-        const border = '2px solid var(--bg-secondary, #1a2035)';
-        const withBorder = { border };
+        const gap = Math.round(size * 0.12);
         return (
-            <div style={{ position: 'relative', width: size + overlap, height: size, flexShrink: 0 }}>
-                <div style={{ position: 'absolute', left: overlap, top: 0 }}>
-                    {p2.photo
-                        ? <img src={p2.photo} alt={p2.name} style={{ ...base, ...withBorder }} />
-                        : <div style={{ ...placeholder(p2), ...withBorder }}>{getInitials(p2.name)}</div>}
-                </div>
-                <div style={{ position: 'absolute', left: 0, top: 0 }}>
-                    {player.photo
-                        ? <img src={player.photo} alt={player.name} style={{ ...base, ...withBorder }} />
-                        : <div style={{ ...placeholder(player), ...withBorder }}>{getInitials(player.name)}</div>}
-                </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap, flexShrink: 0 }}>
+                <Single p={player} />
+                <Single p={p2} />
             </div>
         );
     }

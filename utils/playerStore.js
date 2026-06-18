@@ -1,10 +1,68 @@
 /**
  * Player Store
- * Persistent player management using localStorage.
- * Players are saved permanently and can be reused across games.
+ * Persistent player management using localStorage + Vercel KV sync.
+ * localStorage = instant UI. Server = cross-device persistence.
  */
 
 const STORAGE_KEY = 'whist_players';
+
+// ===== Server Sync Helpers =====
+
+function postToServer(path, body) {
+  if (typeof window === 'undefined') return;
+  fetch(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  }).catch(() => { });
+}
+
+/**
+ * Pull players from the server and merge into localStorage (server wins).
+ * Returns the merged list.
+ */
+export async function syncPlayersFromServer() {
+  if (typeof window === 'undefined') return getAllPlayers();
+  try {
+    const res = await fetch('/api/players');
+    if (!res.ok) return getAllPlayers();
+    const serverPlayers = await res.json();
+    if (Array.isArray(serverPlayers) && serverPlayers.length > 0) {
+      // Merge: server list is authoritative; add any local-only entries not on server
+      const serverIds = new Set(serverPlayers.map((p) => p.id));
+      const localOnly = getAllPlayers().filter((p) => !serverIds.has(p.id));
+      const merged = [...serverPlayers, ...localOnly];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+      if (localOnly.length > 0) postToServer('/api/players', merged);
+      return merged;
+    }
+    // Server has no players yet — push local players up
+    const local = getAllPlayers();
+    if (local.length > 0) postToServer('/api/players', local);
+    return local;
+  } catch {
+    return getAllPlayers();
+  }
+}
+
+/**
+ * Pull history from server and overwrite localStorage.
+ */
+export async function syncHistoryFromServer() {
+  if (typeof window === 'undefined') return loadGameHistory();
+  try {
+    const res = await fetch('/api/history');
+    if (!res.ok) return loadGameHistory();
+    const serverHistory = await res.json();
+    if (Array.isArray(serverHistory) && serverHistory.length > 0) {
+      localStorage.setItem(GAME_HISTORY_KEY, JSON.stringify(serverHistory));
+      return serverHistory;
+    }
+    return loadGameHistory();
+  } catch {
+    return loadGameHistory();
+  }
+}
 
 /**
  * Generate a unique ID
@@ -43,6 +101,7 @@ export function savePlayer(name, photo = null) {
   };
   players.push(player);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(players));
+  postToServer('/api/players', players);
   return player;
 }
 
@@ -58,6 +117,7 @@ export function updatePlayer(id, updates) {
   if (index === -1) return null;
   players[index] = { ...players[index], ...updates };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(players));
+  postToServer('/api/players', players);
   return players[index];
 }
 
@@ -71,6 +131,7 @@ export function deletePlayer(id) {
   const filtered = players.filter((p) => p.id !== id);
   if (filtered.length === players.length) return false;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+  postToServer('/api/players', filtered);
   return true;
 }
 
@@ -135,7 +196,9 @@ export function saveGameToHistory(entry) {
   try {
     const history = loadGameHistory();
     history.unshift(entry);
-    localStorage.setItem(GAME_HISTORY_KEY, JSON.stringify(history.slice(0, 30)));
+    const trimmed = history.slice(0, 30);
+    localStorage.setItem(GAME_HISTORY_KEY, JSON.stringify(trimmed));
+    postToServer('/api/history', entry);
   } catch { }
 }
 

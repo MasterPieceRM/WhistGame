@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from './PlayerSelector.module.css';
-import { getAllPlayers, savePlayer, deletePlayer } from '@/utils/playerStore';
+import { getAllPlayers, savePlayer, deletePlayer, syncPlayersFromServer } from '@/utils/playerStore';
 
 const AVATAR_COLORS = [
   '#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6',
@@ -36,6 +36,13 @@ export default function PlayerSelector({ selectedEntities, onEntitiesChange }) {
   const [teamPlayer2, setTeamPlayer2] = useState('');
   const [teamName, setTeamName] = useState('');
   const fileInputRef = useRef(null);
+
+  // Sync from server on mount (picks up players added on other devices)
+  useEffect(() => {
+    syncPlayersFromServer().then((merged) => {
+      setSavedPlayers(merged);
+    });
+  }, []);
 
   const refreshPlayers = () => {
     setSavedPlayers(getAllPlayers());

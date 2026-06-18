@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import PlayerSelector from '@/components/PlayerSelector';
-import { loadGameState, clearGameState, saveGameState, loadGameHistory } from '@/utils/playerStore';
+import { loadGameState, clearGameState, saveGameState, loadGameHistory, syncHistoryFromServer } from '@/utils/playerStore';
 import EntityAvatar from '@/components/EntityAvatar';
 
 export default function Home() {
@@ -20,6 +20,8 @@ export default function Home() {
     const game = loadGameState();
     if (game) setSavedGame(game);
     setGameHistory(loadGameHistory());
+    // Sync history from server (picks up games played on other devices)
+    syncHistoryFromServer().then(setGameHistory);
   }, []);
 
   const canStart = selectedEntities.length >= 3 && selectedEntities.length <= 12;
