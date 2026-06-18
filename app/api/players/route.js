@@ -2,17 +2,19 @@ import { NextResponse } from 'next/server';
 
 const KEY = 'whist_players';
 
-async function getKv() {
-    if (!process.env.KV_URL && !process.env.KV_REST_API_URL) return null;
-    const { kv } = await import('@vercel/kv');
-    return kv;
+async function getRedis() {
+    const url = process.env.UPSTASH_REDIS_REST_URL;
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+    if (!url || !token) return null;
+    const { Redis } = await import('@upstash/redis');
+    return new Redis({ url, token });
 }
 
 export async function GET() {
-    const kv = await getKv();
-    if (!kv) return NextResponse.json([]);
+    const redis = await getRedis();
+    if (!redis) return NextResponse.json([]);
     try {
-        const players = (await kv.get(KEY)) ?? [];
+        const players = (await redis.get(KEY)) ?? [];
         return NextResponse.json(players);
     } catch {
         return NextResponse.json([]);
@@ -20,11 +22,11 @@ export async function GET() {
 }
 
 export async function POST(request) {
-    const kv = await getKv();
-    if (!kv) return NextResponse.json({ ok: false });
+    const redis = await getRedis();
+    if (!redis) return NextResponse.json({ ok: false });
     try {
         const players = await request.json();
-        await kv.set(KEY, players);
+        await redis.set(KEY, players);
         return NextResponse.json({ ok: true });
     } catch {
         return NextResponse.json({ ok: false });

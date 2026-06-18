@@ -2,17 +2,19 @@ import { NextResponse } from 'next/server';
 
 const KEY = 'whist_history';
 
-async function getKv() {
-    if (!process.env.KV_URL && !process.env.KV_REST_API_URL) return null;
-    const { kv } = await import('@vercel/kv');
-    return kv;
+async function getRedis() {
+    const url = process.env.UPSTASH_REDIS_REST_URL;
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+    if (!url || !token) return null;
+    const { Redis } = await import('@upstash/redis');
+    return new Redis({ url, token });
 }
 
 export async function GET() {
-    const kv = await getKv();
-    if (!kv) return NextResponse.json([]);
+    const redis = await getRedis();
+    if (!redis) return NextResponse.json([]);
     try {
-        const history = (await kv.get(KEY)) ?? [];
+        const history = (await redis.get(KEY)) ?? [];
         return NextResponse.json(history);
     } catch {
         return NextResponse.json([]);
@@ -20,13 +22,13 @@ export async function GET() {
 }
 
 export async function POST(request) {
-    const kv = await getKv();
-    if (!kv) return NextResponse.json({ ok: false });
+    const redis = await getRedis();
+    if (!redis) return NextResponse.json({ ok: false });
     try {
         const entry = await request.json();
-        const history = (await kv.get(KEY)) ?? [];
+        const history = (await redis.get(KEY)) ?? [];
         history.unshift(entry);
-        await kv.set(KEY, history.slice(0, 30));
+        await redis.set(KEY, history.slice(0, 30));
         return NextResponse.json({ ok: true });
     } catch {
         return NextResponse.json({ ok: false });
