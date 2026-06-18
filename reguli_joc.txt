@@ -1,0 +1,6 @@
+3-6 jucatori sau echipe
+Daca sunt 7 jucatori, vom avea 5 jucatori individualisi o echipa de 2.
+Jocul de baza este Whist, dar putin adaptat. Sunt 5 runde de 1 carte, cate o runda de 2-7 carti si 5 runde de 8. Dupa cele 5 runde de 8, se mai fac cate o runda pentru 7-2 carti si in final inca 5 de o carte.
+Ficare jucator imparte cartile pe rand, iar cel care incepe runda este cel din dreapta lui. Aplicatia trebuie sa specifice cine imparte cartile si cine incepe (la fiecare runda). Inainte de inceperea rundei, dupa ce s-au impartit cartile, fiecare jucator trebuie sa parieze cate maini crede ca va lua (puncte). La finalul rundei, jocul va interoga fiecare jucator cu cate maini a luat de fapt si compara cu cat a pariat pentru a adauga/scadea puncte.
+Regula de punctare este urmatoarea: Daca iei atatea maini cate ai pariat, primesti 5 puncte + numarul de maini pariate (ex am pariat 2, chiar 2 am luat, de 5+2=7 puncte). La fel si la pierdere, -(5 puncte + eroarea din pariu). Daca am pariat 2 si am luat 5, eroarea este 3.
+La 5 runde castigatoare consecutive, se adauga un bonus de 10 puncte. La fel si la 5 runde pierzatoare, se scad 10 si se reseteaza contorul de runde consecutive. Jocul se poate opri oricand la cerere, castiogatorul fiind cel cu cele mai multe puncte. 

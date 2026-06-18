@@ -1,0 +1,218 @@
+.page {
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: slideDown 0.6s ease-out;
+}
+
+.logo {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 0 20px rgba(253, 224, 71, 0.3));
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.startSection {
+  text-align: center;
+  margin-top: 2.5rem;
+  animation: fadeIn 0.5s ease-out 0.3s backwards;
+}
+
+.validationMsg {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.validationError {
+  color: var(--red-400);
+}
+
+.resumeCard {
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(253, 224, 71, 0.05);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.resumeInfo {
+  flex: 1;
+}
+
+.resumeTitle {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--gold-400);
+  margin-bottom: 0.25rem;
+}
+
+.resumeDetail {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.resumeActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .logo {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+/* ================================
+   GAME HISTORY
+   ================================ */
+
+.historySection {
+  margin-top: 2.5rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.historyToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.historyToggle:hover {
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+.historyToggleIcon {
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.historyEntry {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.historyEntryHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.historyDate {
+  flex: 1;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.historyPartial {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--red-400);
+  font-weight: 600;
+}
+
+.historyRounds {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.historyPlayers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.historyPlayer {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+}
+
+.historyWinner {
+  font-weight: 700;
+}
+
+.historyPlayerName {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.historyScore {
+  font-size: 0.9rem;
+  font-weight: 700;
+  min-width: 3rem;
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+.historyScorePos {
+  color: var(--green-400);
+}
+
+.historyScoreNeg {
+  color: var(--red-400);
+}
+
+.historyCrown {
+  font-size: 0.85rem;
+}

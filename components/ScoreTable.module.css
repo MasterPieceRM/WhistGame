@@ -1,0 +1,222 @@
+.wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(17, 24, 39, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+.table th,
+.table td {
+  padding: 0.85rem 1.1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.table th {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 2px solid rgba(253, 224, 71, 0.2);
+}
+
+.table th:first-child {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: #151d2e;
+}
+
+.table td:first-child {
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-secondary);
+  position: sticky;
+  left: 0;
+  background: rgba(17, 24, 39, 0.95);
+  z-index: 1;
+}
+
+.table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.table tbody tr:hover td:first-child {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.headerCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.headerName {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.headerTeam {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.roundLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.roundNum {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  min-width: 24px;
+  font-weight: 600;
+}
+
+.cardCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  background: rgba(253, 224, 71, 0.12);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  border: 1px solid rgba(253, 224, 71, 0.2);
+}
+
+.cellWin {
+  background: rgba(34, 197, 94, 0.1) !important;
+}
+
+.cellLose {
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+
+.cellContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.cellScore {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.cellWin .cellScore {
+  color: #4ade80;
+}
+
+.cellLose .cellScore {
+  color: #f87171;
+}
+
+.cellBetResult {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 500;
+}
+
+.cellBonus {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  background: rgba(253, 224, 71, 0.1);
+}
+
+.cellBonusNeg {
+  color: var(--red-400);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.cumulativeScore {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+}
+
+.currentRow {
+  background: rgba(253, 224, 71, 0.08) !important;
+}
+
+.currentRow td {
+  border-bottom: 2px solid rgba(253, 224, 71, 0.3) !important;
+}
+
+.currentRow td:first-child {
+  background: rgba(253, 224, 71, 0.12) !important;
+}
+
+.totalRow td {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-top: 3px solid rgba(253, 224, 71, 0.25);
+  border-bottom: none;
+  font-weight: 900;
+  font-size: 1.15rem;
+  padding: 1rem 1.1rem;
+}
+
+.totalRow td:first-child {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--gold-400);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+}
+
+.totalScore {
+  color: var(--gold-400);
+  font-size: 1.3rem;
+}
+
+.totalScorePositive {
+  color: #4ade80;
+  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
+}
+
+.totalScoreNegative {
+  color: #f87171;
+  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+}
+
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .cellScore {
+    font-size: 0.95rem;
+  }
+
+  .totalScore {
+    font-size: 1.1rem;
+  }
+}

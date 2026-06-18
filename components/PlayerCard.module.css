@@ -1,0 +1,203 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.card:hover {
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.card.winner {
+  border-color: var(--gold-400);
+  box-shadow: var(--shadow-gold);
+}
+
+.card.isDealer {
+  border-color: rgba(234, 179, 8, 0.4);
+}
+
+.card.isStarter {
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+.avatarWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 2px solid var(--border-medium);
+  transition: border-color var(--transition-base);
+}
+
+.avatarPlaceholder {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--bg-primary);
+  border: 2px solid var(--border-medium);
+  transition: all var(--transition-base);
+}
+
+.teamAvatars {
+  display: flex;
+  margin-left: 0;
+}
+
+.teamAvatars .avatar,
+.teamAvatars .avatarPlaceholder {
+  width: 38px;
+  height: 38px;
+  font-size: 0.85rem;
+}
+
+.teamAvatars > *:nth-child(2) {
+  margin-left: -12px;
+  z-index: 1;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.teamNames {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.score {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--gold-400);
+  text-align: right;
+  min-width: 50px;
+  transition: all var(--transition-spring);
+}
+
+.scorePositive {
+  color: var(--green-400);
+}
+
+.scoreNegative {
+  color: var(--red-400);
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.dealerBadge {
+  background: var(--gold-gradient);
+  color: #1a1a2e;
+}
+
+.starterBadge {
+  background: var(--green-500);
+  color: white;
+}
+
+.roleBadges {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.roleBadge {
+  padding: 0.1rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.02em;
+}
+
+.dealerRoleBadge {
+  background: rgba(253, 224, 71, 0.15);
+  color: var(--gold-400);
+}
+
+.starterRoleBadge {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--green-400);
+}
+
+/* Large variant for game screen */
+.cardLarge {
+  padding: 1.25rem 1.5rem;
+}
+
+.cardLarge .avatar,
+.cardLarge .avatarPlaceholder {
+  width: 56px;
+  height: 56px;
+  font-size: 1.3rem;
+}
+
+.cardLarge .name {
+  font-size: 1.1rem;
+}
+
+.cardLarge .score {
+  font-size: 1.8rem;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 0.75rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .avatar,
+  .avatarPlaceholder {
+    width: 40px;
+    height: 40px;
+  }
+
+  .score {
+    font-size: 1.2rem;
+  }
+}
